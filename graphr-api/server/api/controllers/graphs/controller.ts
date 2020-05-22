@@ -5,25 +5,24 @@ import { AdviserRepository, Adviser } from '../../services/adviserrepository.ser
 import { FirmRepository } from '../../services/firmrepository.service';
 import logger from '../../../common/logger'
 
-export class Controller { 
-    //constructor(private graphService: IGraphService) { }
+export class Controller {
+    constructor(private graphService: IGraphService) { }
 
-    getGraph(req: Request, res: Response): void { 
+    async getGraph(req: Request, res: Response): Promise<void> { 
         const id = Number.parseInt(req.params['id']);
-        logger.info(`${id}`);
-        // this.graphService.getAccountGraph(id)
-        //     .then(graph => {
-        //       console.log(graph);
-        //       if(graph) res.json(graph.toGraphModel())
-        //       else res.status(404).end()
-        //     });
+        let graph = await this.graphService.getAccountGraph(id);
+            
+        if(graph) 
+            res.json(graph.toGraphModel())
+        else 
+            res.status(404).end()
     }
 }
     
 export default new Controller(
-    // new GraphService(
-    //     new AccountRepository(),
-    //     new AdviserRepository(),
-    //     new FirmRepository()
-    // )
+    new GraphService(
+        new AccountRepository(),
+        new AdviserRepository(),
+        new FirmRepository()
+    )
 );
