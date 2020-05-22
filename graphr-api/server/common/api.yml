@@ -13,7 +13,7 @@ tags:
 - name: Graph
   description: Endpoints for getting Graph data
 paths:
-  /graph/{type}/{id}:
+  /graph/{id}:
     get:
       tags:
       - Graph
