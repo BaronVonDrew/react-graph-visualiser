@@ -1,17 +1,15 @@
 export class Graph { 
-    adjacencyList: { [id: string] : Array<string>; };
+    adjacencyList: { [id: string] : Array<string>; } = {};
 
     addNode(id: string, linkedNodes: Array<string>): void { 
-        let node = this.adjacencyList[id];
-        if(node)
+        if(this.adjacencyList.hasOwnProperty(id))
             throw `Node with Id: ${id} already exists`;
 
         this.adjacencyList[id] = linkedNodes;
     }
 
     addLink(fromId: string, toId: string): void {
-        let node = this.adjacencyList[fromId];
-        if(!node)
+        if(!this.adjacencyList.hasOwnProperty(fromId))
             throw `Node with id: ${fromId} does not exist`;
 
         let links = this.adjacencyList[fromId];
