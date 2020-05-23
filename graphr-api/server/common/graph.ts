@@ -1,3 +1,5 @@
+import logger from '../common/logger';
+
 export class Graph { 
     adjacencyList: { [id: string] : Array<string>; } = {};
 
@@ -24,7 +26,9 @@ export class Graph {
         for(let key in this.adjacencyList) {
             model.nodes.push(new Node(key));
             let value = this.adjacencyList[key];
-            value.map(v => new Edge(`${key}/${v}`, key, v));
+            value.map(v => new Edge(`${key}/${v}`, key, v)).forEach(edge => {
+                model.edges.push(edge);
+            });
         }
         return model;
     }
@@ -38,5 +42,5 @@ export class Node {
     constructor(public id: string) { }
 }
 export class Edge { 
-    constructor(public id: string, source: string, target: string) { } 
+    constructor(public id: string, public source: string, public target: string) { } 
 }
