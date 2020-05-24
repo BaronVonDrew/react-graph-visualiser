@@ -3,7 +3,6 @@ import { IGraphService, GraphService } from '../../services/graph.service';
 import { AccountRepository } from '../../services/accountrepository.service';
 import { AdviserRepository, Adviser } from '../../services/adviserrepository.service';
 import { FirmRepository } from '../../services/firmrepository.service';
-import logger from '../../../common/logger'
 
 export class Controller {
     constructor(private graphService: IGraphService) { }
