@@ -2,6 +2,7 @@ import  React  from 'react'
 import { Sigma, RandomizeNodePositions, RelativeSize } from 'react-sigma';
 import GraphApi from '../../common/api';
 import logo from '../../logo.svg'
+import ForceAtlas2 from 'react-sigma/lib/ForceAtlas2';
 
 export class DrewGraph extends React.Component {
     constructor(props) {
@@ -29,14 +30,20 @@ export class DrewGraph extends React.Component {
                     settings={{
                         animationsTime: 3000,
                         drawEdges: true, 
-                        clone: false
+                        clone: false,
+                        defaultNodeColor: '#ec5148'
                     }}
                     renderer="webgl"
                     style={{
                         height: 'inherit',
                         maxWidth: 'inherit'
                     }}>
-                    <RandomizeNodePositions/>
+                    <RandomizeNodePositions>
+                        <ForceAtlas2
+                            timeout={5000}
+                            linLogMode
+                        />
+                    </RandomizeNodePositions>
                     <RelativeSize initialSize={15}/>
                 </Sigma>
             </div>
