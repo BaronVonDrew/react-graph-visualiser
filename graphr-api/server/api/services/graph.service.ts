@@ -22,6 +22,8 @@ export class GraphService implements IGraphService {
             graph.addLink(`adviser/${adviser.id}`, `assistant/${assistantId}`);
         });
         graph.addNode(`firm/${firm.id}`, firm.assistants.map(a => `assistant/${a}`));
+        firm.assistants.forEach(assitantId => graph.addNode(`assistant/${assitantId}`, []))
+
         return Promise.resolve(graph);
     }
 }

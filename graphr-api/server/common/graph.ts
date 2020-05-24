@@ -5,7 +5,7 @@ export class Graph {
 
     addNode(id: string, linkedNodes: Array<string>): void { 
         if(this.adjacencyList.hasOwnProperty(id))
-            throw `Node with Id: ${id} already exists`;
+            return;
 
         this.adjacencyList[id] = linkedNodes;
     }
@@ -24,7 +24,7 @@ export class Graph {
     toGraphModel(): GraphModel { 
         let model = new GraphModel();
         for(let key in this.adjacencyList) {
-            model.nodes.push(new Node(key));
+            model.nodes.push(new Node(key, key));
             let value = this.adjacencyList[key];
             value.map(v => new Edge(`${key}/${v}`, key, v)).forEach(edge => {
                 model.edges.push(edge);
@@ -39,8 +39,28 @@ export class GraphModel {
     edges: Edge[] = new Array<Edge>();
 }
 export class Node { 
-    constructor(public id: string) { }
+    constructor(public id: string, public label: string) { 
+        let prefix = id.split('/')[0];
+        switch (prefix) {
+            case 'account':
+                this.color = 'green';
+                break;
+            case 'firm':
+                this.color = '#ec5148';
+                this.size = 3;
+                break;
+            default:
+                this.color = '#ec5148';
+                this.size = 1;
+                break;
+        }
+    }
+
+    public color: string; 
+    public size: number;
 }
 export class Edge { 
     constructor(public id: string, public source: string, public target: string) { } 
+
+    public color: string = '#ec5148';
 }
